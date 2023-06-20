@@ -1,8 +1,7 @@
 import { Form, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
-import { Typography, TextField, Button, Link } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Typography, TextField, Button } from "@mui/material";
 export default function PasswordResetForm() {
   const { t } = useTranslation();
   const loginValidationSchema = Yup.object({
