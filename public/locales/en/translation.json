@@ -67,25 +67,12 @@
       "subTitle": "To get a validation code, enter the e-mail address associated to your account.",
       "title": "Get validation code"
     },
-    "forgotPasswordSubmit": {
-      "form": {
-        "action": "Reset Password",
-        "back": "Back to login",
-        "code": {
-          "label": "Code"
-        },
-        "confirmPassword": {
-          "label": "Confirm Password"
-        },
-        "newPassword": {
-          "label": "New Password"
-        }
-      },
-      "notifications": {
-        "success": "Your password has been changed!"
-      },
-      "subTitle": "Enter the code you received by mail and choose a new password.",
-      "title": "Change your password"
+    "resetPassword": {
+      "title": "Reset your password",
+      "subTitle": "Enter the e-mail address linked to your account. If it is recognized, you will receive an e-mail allowing you to update your password.",
+      "button": {
+        "label": "Send"
+      }
     },
     "login": {
       "forgotPasswordLink": "Forgot password?",
@@ -97,11 +84,13 @@
           "label": "Password"
         }
       },
-      "newAccountLink": "Don't have an account? Sign Up!",
+      "newAccountLabel": "Don't have an account?",
+      "newAccountLink": " Sign Up!",
       "submit": "Sign in",
-      "title": "Sign in"
+      "title": "Log in"
     },
     "register": {
+      "alreadyRegistered": "Already have an account?",
       "back": "Back to login",
       "form": {
         "email": {
@@ -125,8 +114,8 @@
       "notifications": {
         "success": "Your account has been created successfully!"
       },
-      "submit": "Register",
-      "title": "Register"
+      "submit": "Sign up",
+      "title": "Sign up"
     }
   },
   "calendar": {
@@ -168,6 +157,12 @@
     "title": "Calendar"
   },
   "common": {
+    "navbar": {
+      "home": "Home",
+      "buy": "Buy",
+      "rent": "Rent",
+      "sell": "Sell"
+    },
     "backHome": "Back to Home",
     "cancel": "Cancel",
     "confirm": "Confirm",
