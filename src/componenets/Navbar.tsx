@@ -12,9 +12,15 @@ import {
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useTranslation } from "react-i18next";
+import { Link as RouterLink } from "react-router-dom";
 export default function Navbar() {
-  const pages = ["Rent", "Buy", "Sell"];
-
+  const { t } = useTranslation();
+  const pages = [
+    t("common.navbar.rent"),
+    t("common.navbar.buy"),
+    t("common.navbar.sell"),
+  ];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -36,8 +42,8 @@ export default function Navbar() {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={RouterLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -48,7 +54,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           >
-            Home
+            {t("common.navbar.home")}
           </Typography>
           {/* This will be shown only when screen size is middle */}
 
@@ -93,8 +99,8 @@ export default function Navbar() {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={RouterLink}
+            to=""
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -106,7 +112,7 @@ export default function Navbar() {
               textDecoration: "none",
             }}
           >
-            Home
+            {t("common.navbar.home")}
           </Typography>
           {/* This will be shown only when screen size is small */}
 
@@ -131,38 +137,38 @@ export default function Navbar() {
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/login"
+              component={RouterLink}
+              to="/login"
               sx={{
                 mr: 2,
                 display: { xs: "flow", md: "flex" },
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".1rem",
-                color: "inherit",
+                color: "white",
                 textDecoration: "none",
               }}
             >
-              Sign in
+              {t("auth.login.title")}
             </Typography>
           </Button>
-          <Button variant="contained" sx={{ my: 2, color: "white", display: "block" }}>
+          <Button sx={{ my: 2, color: "white", display: "block" }}>
             <Typography
               variant="h6"
               noWrap
-              component="a"
-              href="/"
+              component={RouterLink}
+              to="/register"
               sx={{
                 mr: 2,
                 display: { xs: "flow", md: "flex" },
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".1rem",
-                color: "inherit",
+                color: "lightblue",
                 textDecoration: "none",
               }}
             >
-              Sign up
+              {t("auth.register.title")}
             </Typography>
           </Button>
           <Box sx={{ flexGrow: 0 }}></Box>
