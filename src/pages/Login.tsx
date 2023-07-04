@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../componenets/LoginForm";
+import LoginForm from "../componenents/LoginForm";
 import { Container } from "@mui/material";
 export default function Login() {
   return (

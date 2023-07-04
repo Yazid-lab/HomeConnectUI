@@ -1,6 +1,6 @@
 import React from "react";
 import { Container } from "@mui/material";
-import RegisterForm from "../componenets/RegisterForm";
+import RegisterForm from "../componenents/RegisterForm";
 export default function Register() {
   return (
     <Container
