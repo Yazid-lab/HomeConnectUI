@@ -9,6 +9,7 @@ import {
   Menu,
   MenuItem,
   Button,
+  Link,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -38,7 +39,16 @@ export default function Navbar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* This will be shown only when screen size is middle */}
-          <HomeIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <Link component={RouterLink} to="/">
+            <HomeIcon
+              sx={{
+                display: { xs: "none", md: "flex" },
+                mr: 1,
+                textDecoration: "none",
+                color: "white",
+              }}
+            />
+          </Link>
           <Typography
             variant="h6"
             noWrap
