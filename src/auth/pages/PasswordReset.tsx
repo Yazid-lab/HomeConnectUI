@@ -1,6 +1,5 @@
 import { Container } from "@mui/material";
-import PasswordResetForm from "../componenents/PasswordResetForm";
-
+import PasswordResetForm from "../components/PasswordResetForm";
 export default function PasswordReset() {
   return (
     <Container

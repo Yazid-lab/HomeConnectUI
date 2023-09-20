@@ -1,6 +1,7 @@
 import React from "react";
-import LoginForm from "../componenents/LoginForm";
+import LoginForm from "../components/LoginForm";
 import { Container } from "@mui/material";
+import { useAuth } from "../contexts/AuthProvider";
 export default function Login() {
   return (
     <div>
