@@ -109,7 +109,10 @@
         },
         "lastName": {
           "label": "Last Name"
-        }
+        },
+      "telephone":{
+        "label":"Telephone"
+      }
       },
       "notifications": {
         "success": "Your account has been created successfully!"
@@ -160,7 +163,7 @@
     "navbar": {
       "home": "Home",
       "buy": "Buy",
-      "rent": "Rent",
+      "rent": "Rent & Buy",
       "sell": "Sell"
     },
     "backHome": "Back to Home",
@@ -199,7 +202,7 @@
       "email": "Invalid email address",
       "max": "Must be {{size}} characters or less",
       "min": "Must be {{size}} characters or more",
-      "passwordMatch": "Password does not match",
+      "passwordMatch": "Password must have at least one uppercase letter, one lowercase letter, one digit, and one special symbol",
       "required": "Required"
     }
   },
