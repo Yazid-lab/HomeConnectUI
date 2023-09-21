@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import {
-  Typography,
-  TextField,
-  Button,
-  Container,
-  Grid,
-  Input,
-} from "@mui/material";
-
+import { Typography, Container, Box } from "@mui/material";
 import axios from "axios";
 import { useAuth } from "../../auth/contexts/AuthProvider";
 import { Ad } from "../types/ad";
+import LocationMap from "../components/DraggableLocationMap";
+import AdDetailsFields from "../components/AdDetailsFields";
 export default function Sell() {
   const { userInfo } = useAuth();
+  const [location, setLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -23,8 +21,6 @@ export default function Sell() {
     town: "",
     postCode: "",
     country: "",
-    latitude: 0,
-    longitude: 0,
     file: null as File | null,
   });
 
@@ -34,21 +30,24 @@ export default function Sell() {
       ...formData,
       [name]: value,
     });
+    console.log(formData);
+    console.log(location);
   };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
-    if (file != null) {
+    console.log(e.target.files)
+/*     if (file != null) {
       setFormData({
         ...formData,
         file: file!,
       });
-    }
+    } */
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     console.log(formData.file);
     console.log(e);
     console.log(formData);
@@ -59,7 +58,7 @@ export default function Sell() {
         url: "https://localhost:7262/image",
         data: { image: formData.file },
         headers: {
-          "Content-Type": "multipart/form-data", 
+          "Content-Type": "multipart/form-data",
         },
       });
 
@@ -68,7 +67,7 @@ export default function Sell() {
     }
     const adObject: Partial<Ad> = {
       title: formData.title,
-      datePublication: new Date(), 
+      datePublication: new Date(),
       price: formData.price,
       area: formData.area,
       nbRooms: formData.nbRooms,
@@ -78,15 +77,18 @@ export default function Sell() {
         town: formData.town,
         postCode: formData.postCode,
         country: formData.country,
-        latitude: formData.latitude,
-        longitude: formData.longitude,
+        latitude: location.latitude,
+        longitude: location.longitude,
       },
-      applicationUserId: userInfo?.id, 
+      applicationUserId: userInfo?.id,
       description: formData.description,
-      isPublished: true, 
+      isPublished: true,
     };
-    const {data} = await axios.post("https://localhost:7262/api/ads", adObject);
-    console.log(data)
+    const { data } = await axios.post(
+      "https://localhost:7262/api/ads",
+      adObject
+    );
+    console.log(data);
     setFormData({
       title: "",
       description: "",
@@ -97,143 +99,31 @@ export default function Sell() {
       town: "",
       postCode: "",
       country: "",
-      latitude: 0,
-      longitude: 0,
       file: null as File | null,
     });
   };
 
   return (
-    <Container maxWidth="xs">
-      <Typography variant="h4" gutterBottom style={{marginTop:"2em"}}>
-      Post an advert:
+    <>
+      <Typography variant="h4" gutterBottom style={{ marginTop: "1em" }}>
+        Post an advert:
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              label="Title"
-              name="title"
-              variant="outlined"
-              fullWidth
-              value={formData.title}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Description"
-              name="description"
-              variant="outlined"
-              fullWidth
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Price"
-              name="price"
-              variant="outlined"
-              fullWidth
-              value={formData.price}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Area"
-              name="area"
-              variant="outlined"
-              fullWidth
-              value={formData.area}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Number of Rooms"
-              name="nbRooms"
-              variant="outlined"
-              fullWidth
-              value={formData.nbRooms}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Street"
-              name="street"
-              variant="outlined"
-              fullWidth
-              value={formData.street}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Town"
-              name="town"
-              variant="outlined"
-              fullWidth
-              value={formData.town}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Post Code"
-              name="postCode"
-              variant="outlined"
-              fullWidth
-              value={formData.postCode}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Country"
-              name="country"
-              variant="outlined"
-              fullWidth
-              value={formData.country}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Latitude"
-              name="latitude"
-              variant="outlined"
-              fullWidth
-              value={formData.latitude}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Longitude"
-              name="longitude"
-              variant="outlined"
-              fullWidth
-              value={formData.longitude}
-              onChange={handleChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <input
-              type="file"
-              accept=".jpg, .png, .jpeg"
-              onChange={handleFileUpload}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              Submit
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </Container>
+      <Container>
+        <form onSubmit={handleSubmit}>
+          <Box display="flex">
+            <Box flex="auto" marginRight="1em">
+              <AdDetailsFields
+                handleChange={handleChange}
+                handleFileUpload={handleFileUpload}
+                formData={formData}
+              />
+            </Box>
+            <Box flex="1" marginTop="2em">
+              <LocationMap handleLocationChange={setLocation} />
+            </Box>
+          </Box>
+        </form>
+      </Container>
+    </>
   );
 }
