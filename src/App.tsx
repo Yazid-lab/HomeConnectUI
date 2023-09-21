@@ -15,6 +15,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Rent from "./ads/pages/Rent";
 import Profile from "./user/pages/Profile";
 import Sell from "./ads/pages/Sell";
+import AdDetail from "./ads/pages/AdDetailPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="/register" element={<Register />} />
       <Route path="/password_reset" element={<PasswordReset />} />
       <Route path="/profile" element={<Profile />} />
+      <Route path="/adDetails/:id" element={<AdDetail />} />
     </Route>
   )
 );
