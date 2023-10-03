@@ -1,14 +1,47 @@
-import { Grid, TextField, Button } from "@mui/material";
+import {
+  Grid,
+  TextField,
+  Button,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 
 interface TextFieldsProps {
   formData: any; // Replace 'any' with the actual type for formData
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleFileUpload:any
+  handleFileUpload: any;
+  handleAdTypeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function AdDetailsFields({ formData, handleChange,handleFileUpload }:TextFieldsProps) {
+export default function AdDetailsFields({
+  formData,
+  handleChange,
+  handleFileUpload,
+  handleAdTypeChange,
+}: TextFieldsProps) {
   return (
-    <Grid container direction="column"  justifyContent="space-evenly" spacing={2}>
+    <Grid
+      container
+      direction="column"
+      justifyContent="space-evenly"
+      spacing={2}
+    >
+      <Grid item xs={12}>
+        <FormControl component="fieldset">
+          <RadioGroup
+            row
+            aria-label="adType"
+            name="adType"
+            value={formData.adType === 0? "Rent":"Sell"}
+            onChange={handleAdTypeChange}
+          >
+            <FormControlLabel value="Rent" control={<Radio />} label="Rent" />
+            <FormControlLabel value="Sell" control={<Radio />} label="Sell" />
+          </RadioGroup>
+        </FormControl>
+      </Grid>
       <Grid item xs={1}>
         <TextField
           label="Title"
@@ -108,7 +141,12 @@ export default function AdDetailsFields({ formData, handleChange,handleFileUploa
         />
       </Grid>
       <Grid item xs={1} alignSelf="center">
-        <Button type="submit" variant="contained" color="primary" style={{padding:"8px",marginBottom:"5px"}}>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          style={{ padding: "8px", marginBottom: "5px" }}
+        >
           Submit
         </Button>
       </Grid>

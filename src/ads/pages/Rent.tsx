@@ -1,5 +1,15 @@
 import React, { useState } from "react";
-import { Typography, TextField, Button, Container } from "@mui/material";
+import {
+  Typography,
+  TextField,
+  Button,
+  Container,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import { useAuth } from "../../auth/contexts/AuthProvider";
 import useAds from "../hooks/useAds";
 import "slick-carousel/slick/slick.css";
@@ -8,6 +18,7 @@ import "./Rent.css";
 import AdsList from "../components/AdsList";
 import ReactPaginate from "react-paginate";
 import { Ad } from "../types/ad";
+import { all } from "axios";
 
 export default function Rent() {
   const { userInfo } = useAuth();
@@ -15,8 +26,9 @@ export default function Rent() {
   const [priceFilter, setPriceFilter] = useState("");
   const [roomFilter, setRoomFilter] = useState("");
   const [cityFilter, setCityFilter] = useState("");
+  const [adTypeFilter, setadTypeFilter] = useState("Rent");
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const [filteredAds, setFilteredAds] = useState<Ad[] >(allAds!);
+  const [filteredAds, setFilteredAds] = useState<Ad[]>(allAds!);
 
   const itemsPerPage = 10;
 
@@ -28,15 +40,22 @@ export default function Rent() {
   const paginatedAds = filteredAds
     ? filteredAds.slice(offset, offset + itemsPerPage)
     : allAds;
-  console.log(paginatedAds,allAds,filteredAds);
+  console.log(paginatedAds, allAds, filteredAds);
   const handlePageChange = (selectedPage: { selected: number }) => {
     setCurrentPage(selectedPage.selected);
   };
 
   const handleFilterClick = () => {
+    let filteredByAdType: Ad[] = allAds!;
+    if (adTypeFilter === "Rent") {
+      filteredByAdType = allAds!.filter((ad) => ad.adType === 0);
+    } else if (adTypeFilter === "Buy") {
+      filteredByAdType = allAds!.filter((ad) => ad.adType === 1);
+    }
+
     let filteredByPrice: Ad[] = [];
     if (priceFilter === "") {
-      filteredByPrice = allAds!;
+      filteredByPrice = filteredByAdType;
     } else {
       filteredByPrice = allAds!.filter((ad) => {
         return ad.price <= parseFloat(priceFilter);
@@ -78,7 +97,10 @@ export default function Rent() {
 
   return (
     <>
-      <Container style={{ marginBottom: "5em", marginTop: "5em" }}>
+      <Container
+        maxWidth="xl"
+        style={{ marginBottom: "5em", marginTop: "5em" }}
+      >
         <Typography variant="h4" gutterBottom>
           Real Estate Adverts
         </Typography>
@@ -109,6 +131,18 @@ export default function Rent() {
           onChange={(e) => setCityFilter(e.target.value)}
           style={{ marginRight: "1em" }}
         />
+        <FormControl component="fieldset">
+          <RadioGroup
+            row
+            aria-label="adType"
+            name="adType"
+            value={adTypeFilter}
+            onChange={(e) => setadTypeFilter(e.target.value)}
+          >
+            <FormControlLabel value="Rent" control={<Radio />} label="Rent" />
+            <FormControlLabel value="Buy" control={<Radio />} label="Buy" />
+          </RadioGroup>
+        </FormControl>
 
         <Button
           variant="contained"

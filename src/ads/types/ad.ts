@@ -2,7 +2,10 @@ export interface Photo  {
   url: string;
   description: string;
 };
-
+export enum adTypeEnum {
+  Rent,
+  Sell,
+}
 export interface Ad {
   id: number;
   title: string;
@@ -22,4 +25,5 @@ export interface Ad {
   applicationUserId: string;
   description: string;
   isPublished: boolean;
+  adType:adTypeEnum;
 }
