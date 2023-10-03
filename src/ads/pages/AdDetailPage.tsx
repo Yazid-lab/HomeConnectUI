@@ -1,28 +1,29 @@
 import { useParams } from "react-router-dom";
 import useGetAd from "../hooks/useGetAd";
 import {
-  Box,
   CircularProgress,
   Container,
+  Grid,
   Paper,
   Typography,
 } from "@mui/material";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "../pages/LocationMap.css";
 import icon from "leaflet/dist/images/marker-icon.png";
 import L from "leaflet";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import { Ad } from "../types/ad";
+import ImageSlider from "../components/ImageSlider";
 
 const AdMap = ({ ad }: { ad: Ad }) => {
   return (
-    <Container>
+    <>
       <MapContainer
         center={[ad.address.latitude, ad.address.longitude]}
         zoom={13}
         scrollWheelZoom={true}
-        style={{ height: 600, width: 800 }}
+        style={{ height: 400, width: 800 }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -30,7 +31,7 @@ const AdMap = ({ ad }: { ad: Ad }) => {
         />
         <Marker position={[ad.address.latitude, ad.address.longitude]}></Marker>
       </MapContainer>
-    </Container>
+    </>
   );
 };
 
@@ -77,18 +78,27 @@ export default function AdDetail() {
   return (
     <div>
       {ad ? (
-        <Container maxWidth="xl" sx={{ marginTop: "5em" }}>
-          <Box display="flex">
-            <Box flex="auto" sx={{ marginRight: "4em" }}>
-              <Container style={{ marginTop: "180px" }}>
-                <AdDetails ad={ad} />
-              </Container>
-            </Box>
-            <Box flex="auto">
-              <AdMap ad={ad} />
-            </Box>
-          </Box>
-        </Container>
+        <>
+          <Grid
+            container
+            spacing={0}
+            direction="row"
+            alignItems="center"
+            justifyContent="start"
+            marginBottom="2em"
+            marginTop="5em"
+          >
+            <Grid item xs={5}>
+              <AdDetails ad={ad} />
+            </Grid>
+            <Grid item xs={3} >
+              <ImageSlider photos={ad.photos}></ImageSlider>
+            </Grid>
+          </Grid>
+          <Container sx={{ marginBottom: "3em" }}>
+            <AdMap ad={ad} />
+          </Container>
+        </>
       ) : (
         <Container
           maxWidth="xs"

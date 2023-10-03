@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import Slider from "react-slick";
 import { Photo } from "../types/ad";
+import './style.css'
 export default function ImageSlider({ photos }: { photos: Photo[] }) {
   const sliderSettings = {
     dots: false,
@@ -14,7 +15,15 @@ export default function ImageSlider({ photos }: { photos: Photo[] }) {
       <Container>
         <Slider {...sliderSettings}>
           {photos.map((photo) => (
-            <img src={photo.url =="string"? "https://placehold.co/600x400" : photo.url} alt={photo.description} />
+            <img className="img"
+            key={photo.url}
+              src={
+                photo.url == "string"
+                  ? "https://placehold.co/600x400"
+                  : photo.url
+              }
+              alt={photo.description}
+            />
           ))}
         </Slider>
       </Container>

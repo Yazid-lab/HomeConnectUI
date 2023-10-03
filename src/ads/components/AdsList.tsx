@@ -9,7 +9,14 @@ export default function AdsList({ adverts }: { adverts: Ad[] | undefined }) {
       {adverts ? (
         <Stack spacing={2}>
           {adverts?.map((advert, index) => (
-            <Grid container spacing={0} key={index}>
+            <Grid
+              container
+              spacing={0}
+              key={index}
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+            >
               <Grid item xs={2}>
                 <ImageSlider photos={advert.photos} />
               </Grid>

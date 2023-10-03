@@ -23,7 +23,7 @@ export default function Navbar() {
   const { t } = useTranslation();
   const pages = [
     { label: t("common.navbar.rent"), url: "/rent" },
-    { label: t("common.navbar.sell"), url: "/sell" },
+    { label: "Post an Advert", url: "/sell" },
   ];
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
