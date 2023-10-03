@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState } from "react";
 import { Form, Formik } from "formik";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
@@ -9,7 +9,8 @@ import { useLocalStorage } from "../../core/hooks/useLocalStorage";
 export default function LoginForm() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [showMessage,setShowMessage] = useState<boolean>(false)
+  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [message, setMessage] = useState("");
   const loginValidationSchema = Yup.object({
     email: Yup.string()
       .email(t("common.validations.email"))
@@ -26,14 +27,14 @@ export default function LoginForm() {
   const handleLogin = (email: string, password: string) => {
     login(email, password)
       .then((isLoggedIn) => {
-        console.log(isLoggedIn)
+        console.log(isLoggedIn);
         if (isLoggedIn) {
-          navigate(`/${process.env.PUBLIC_URL}`)
+          navigate(`/${process.env.PUBLIC_URL}`);
         }
       })
       .catch((err) => {
-
-      setShowMessage(true)
+        setMessage(err.response.data["message"]);
+        setShowMessage(true);
       });
   };
   const LoginFormHeader = () => {
@@ -87,7 +88,10 @@ export default function LoginForm() {
               autoFocus
               value={props.values.email}
               onChange={props.handleChange}
-              error={(props.touched.email && Boolean(props.errors.email)) || isLoggedIn}
+              error={
+                (props.touched.email && Boolean(props.errors.email)) ||
+                isLoggedIn
+              }
               helperText={props.touched.email && props.errors.email}
             />
             <TextField
@@ -117,7 +121,7 @@ export default function LoginForm() {
             >
               {t("auth.login.title")}
             </Button>
-          {showMessage&& <Alert severity="error">Wrong Credentials</Alert>}
+            {showMessage && <Alert severity="error">{message}</Alert>}
           </Form>
         )}
       </Formik>
