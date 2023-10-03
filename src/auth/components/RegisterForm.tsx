@@ -11,6 +11,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 export default function RegisterForm() {
   const { isRegistered, isRegistering, register } = useRegister();
   const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("")
   const { t } = useTranslation();
   const navigate = useNavigate();
   const phoneRegExp =
@@ -49,6 +50,8 @@ export default function RegisterForm() {
         }
       })
       .catch((err) => {
+        console.log(err)
+        setMessage(err.response.data["message"])
         setShowMessage(true);
       });
   };
@@ -172,7 +175,7 @@ export default function RegisterForm() {
 
             {showMessage && (
               <Alert severity="error">
-                An account with this email already exists
+                {message}
               </Alert>
             )}
           </Form>

@@ -8,8 +8,8 @@ const register = async (
   userInfo: Partial<UserInfo>
 ): Promise<registerResponse> => {
   const apiUrl = 'https://localhost:7262/api'
-  const { data } = await axios.post(`${apiUrl}/auth/register`, userInfo);
-  return data;
+  const response = await axios.post(`${apiUrl}/auth/register`, userInfo);
+  return response.data;
 };
 
 export function useRegister() {
